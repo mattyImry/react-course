@@ -1,6 +1,5 @@
 import Expenses from "./components/Expenses";
 
-
 function App() {
 
   const expenses = [
@@ -29,7 +28,6 @@ function App() {
       date: new Date(2021, 5, 12),
     },
   ];
-
 
   return (
     <div>
