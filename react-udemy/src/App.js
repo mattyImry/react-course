@@ -1,6 +1,9 @@
 import Expenses from "./components/Expenses/Expenses";
-// import React from "react"; Only for old projects but running on all file under the hood
-function App() {
+
+// import React from "react"; 
+// Only for old projects but running on all file under the hood
+
+const App = () => {
 
   const expenses = [
     {
