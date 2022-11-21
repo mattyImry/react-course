@@ -1,5 +1,5 @@
-import Expenses from "./components/Expenses";
-import React from "react";
+import Expenses from "./components/Expenses/Expenses";
+// import React from "react"; Only for old projects but running on all file under the hood
 function App() {
 
   const expenses = [
@@ -29,21 +29,21 @@ function App() {
     },
   ];
 
-  // return (
-  //   <div>
-  //     <h2>Let's get started!</h2>
-  //       <Expenses
-  //         items={expenses} 
-  //       />
-  //   </div>
-  // );
-
-  return React.createElement(
-    'div',
-    {},
-    React.createElement('h2', {}, "Let's get started!"),
-    React.createElement(Expenses, {items: expenses}  )
+  return (
+    <div>
+      <h2>Let's get started!</h2>
+        <Expenses
+          items={expenses} 
+        />
+    </div>
   );
+
+  // return React.createElement(
+  //   'div',
+  //   {},
+  //   React.createElement('h2', {}, "Let's get started!"),
+  //   React.createElement(Expenses, {items: expenses}  )
+  // );
 }
 
 export default App;
