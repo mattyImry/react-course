@@ -1,4 +1,5 @@
 import Expenses from "./components/Expenses/Expenses";
+import NewExpense from "./components/NewExpense/NewExpense";
 
 // import React from "react"; 
 // Only for old projects but running on all file under the hood
@@ -34,7 +35,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>Let's get started!</h2>
+        <NewExpense />
         <Expenses
           items={expenses} 
         />
