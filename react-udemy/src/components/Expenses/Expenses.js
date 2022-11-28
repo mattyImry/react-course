@@ -18,6 +18,9 @@ const Expenses = (props) => {
         />
         {props.items.map((expense) => (
           <ExpenseItem
+            //when displaying multiple items use a unique identifier
+            //with key={unique identifier}
+            key={expense.id}
             title={expense.title}
             amount={expense.amount}
             date={expense.date}
