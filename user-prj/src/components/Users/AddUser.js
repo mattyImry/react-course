@@ -51,10 +51,6 @@ const AddUser = (props) => {
                 />
                 <Button type="submit">Add User</Button>
             </form>
-            <div>
-                {enteredUserName}
-                {enteredAge}
-            </div>
         </Card>
     );
 };
