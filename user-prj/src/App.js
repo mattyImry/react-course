@@ -18,7 +18,7 @@ function App() {
         <React.Fragment>
             <AddUser onAddUser={addUserListHandler} />
             <UserList users={usersList} />
-        </React.Fragment>
+        </React.Fragment>  
     );
 }
 
