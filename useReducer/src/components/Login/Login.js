@@ -99,7 +99,7 @@ const Login = (props) => {
     } else if (!emailIsValid) {
       emailInputRef.current.focus();
     } else {
-      passwordInputRef.current.activate();
+      passwordInputRef.current.focus();
     }
   };
 
