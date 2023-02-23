@@ -12,7 +12,7 @@
   flex-direction: column;
 }
 
-.control label,
+.control label, 
 .control input {
   display: block;
 }
