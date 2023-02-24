@@ -16,16 +16,31 @@ const emailReducer = (state, action) => {
     return { value: "", isValid: false };
 };
 
+const passReducer = (state, action) => {
+    if (action.type === "USER_PASS") {
+        return { value: action.val, isValid: action.val.trim().length > 6 };
+    }
+    if (action.type === "PASS_BLUR") {
+        return { value: state.value, isValid: state.value.trim().length > 6 };
+    }
+    return { value: "", isValid: false };
+};
+
 const Login = (props) => {
     // const [enteredEmail, setEnteredEmail] = useState("");
     // const [emailIsValid, setEmailIsValid] = useState();
-    const [enteredPassword, setEnteredPassword] = useState("");
-    const [passwordIsValid, setPasswordIsValid] = useState();
+    // const [enteredPassword, setEnteredPassword] = useState("");
+    // const [passwordIsValid, setPasswordIsValid] = useState();
     const [formIsValid, setFormIsValid] = useState(false);
 
     const [emailState, dispatchEmail] = useReducer(emailReducer, {
         value: "",
-        isValid: false,
+        isValid: null,
+    });
+
+    const [passState, dispatchPass] = useReducer(passReducer, {
+        value: "",
+        isValid: null,
     });
 
     useEffect(() => {
@@ -36,32 +51,31 @@ const Login = (props) => {
         };
     }, []);
 
-    // useEffect(() => {
-    //   const identifier = setTimeout(() => {
-    //     console.log('Checking form validity!');
-    //     setFormIsValid(
-    //       enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    //     );
-    //   }, 500);
+    const { isValid: emailIsValid } = emailState;
+    const { isValid: passwordIsValid } = passState;
 
-    //   return () => {
-    //     console.log('CLEANUP');
-    //     clearTimeout(identifier);
-    //   };
-    // }, [enteredEmail, enteredPassword]);
+    useEffect(() => {
+        const identifier = setTimeout(() => {
+            console.log("Checking form validity!");
+            setFormIsValid(emailState.isValid && passState.isValid);
+        }, 500);
+
+        return () => {
+            console.log("CLEANUP");
+            clearTimeout(identifier);
+        };
+    }, [emailIsValid, passwordIsValid]);
 
     const emailChangeHandler = (event) => {
         dispatchEmail({ type: "USER_INPUT", val: event.target.value });
 
-        setFormIsValid(
-            event.target.value.includes("@") && enteredPassword.trim().length > 6
-        );
+        // setFormIsValid(event.target.value.includes("@") && passState.isValid);
     };
 
     const passwordChangeHandler = (event) => {
-        setEnteredPassword(event.target.value);
+        dispatchPass({ type: "USER_PASS", val: event.target.value });
 
-        setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
+        // setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
     };
 
     const validateEmailHandler = () => {
@@ -69,12 +83,12 @@ const Login = (props) => {
     };
 
     const validatePasswordHandler = () => {
-        setPasswordIsValid(enteredPassword.trim().length > 6);
+        dispatchPass({ type: "PASS_BLUR" });
     };
 
     const submitHandler = (event) => {
         event.preventDefault();
-        props.onLogin(emailState.value, enteredPassword);
+        props.onLogin(emailState.value, passState.value);
     };
 
     return (
@@ -96,14 +110,14 @@ const Login = (props) => {
                 </div>
                 <div
                     className={`${classes.control} ${
-                        passwordIsValid === false ? classes.invalid : ""
+                        passState.isValid === false ? classes.invalid : ""
                     }`}
                 >
                     <label htmlFor="password">Password</label>
                     <input
                         type="password"
                         id="password"
-                        value={enteredPassword}
+                        value={passState.value}
                         onChange={passwordChangeHandler}
                         onBlur={validatePasswordHandler}
                     />
