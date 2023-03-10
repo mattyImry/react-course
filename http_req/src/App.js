@@ -21,16 +21,22 @@ function App() {
             }
 
             const data = await response.json();
+            //nested object comeing back so needs to trasform
+            //with a for loop and then drilling into data
+            const loadedMovies = [];
 
-            const transformedMovies = data.results.map((movieData) => {
-                return {
-                    id: movieData.episode_id,
-                    title: movieData.title,
-                    openingText: movieData.opening_crawl,
-                    releaseDate: movieData.release_date,
-                };
-            });
-            setMovies(transformedMovies);
+            for (const key in data) {
+                loadedMovies.push({
+                    id: key,
+                    title: data[key].title,
+                    openingText: data[key].openingText,
+                    releaseDate: data[key].releaseDate,
+                });
+            }
+
+            console.log(loadedMovies);
+
+            setMovies(loadedMovies);
         } catch (error) {
             setError(error.message);
         }
@@ -41,8 +47,19 @@ function App() {
         fetchMoviesHandler();
     }, [fetchMoviesHandler]);
 
-    function addMovieHandler(movie) {
-        console.log(movie);
+    async function addMovieHandler(movie) {
+        const response = await fetch(
+            "https://react-http-936c1-default-rtdb.europe-west1.firebasedatabase.app/movies.json",
+            {
+                method: "POST",
+                body: JSON.stringify(movie),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+        const data = await response.json();
+        console.log(data);
     }
 
     let content = <p>Found no movies.</p>;
