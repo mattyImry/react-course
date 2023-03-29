@@ -1,9 +1,18 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+
+// THIS CODE USES STATE AND REF TO TAKE USER INPUT . DO NOT USE BOTH IS JUST AN EXAMPLE
 
 const SimpleInput = (props) => {
     const nameInputRef = useRef();
     const [enteredName, setEnterName] = useState("");
-    const [enteredNameIsValid, setEnterNameIsValid] = useState(true);
+    const [enteredNameIsValid, setEnterNameIsValid] = useState(false);
+    const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+
+    useEffect(() => {
+        if (enteredNameIsValid) {
+            console.log("Name input is valid");
+        }
+    }, [enteredNameIsValid]);
 
     const nameInputHandler = (event) => {
         setEnterName(event.target.value);
@@ -11,6 +20,8 @@ const SimpleInput = (props) => {
 
     const formSubmissionHandler = (event) => {
         event.preventDefault();
+
+        setEnteredNameTouched(true);
 
         if (enteredName.trim() === "") {
             setEnterNameIsValid(false);
@@ -24,7 +35,10 @@ const SimpleInput = (props) => {
         setEnterName("");
     };
 
-    const nameInputClasses = enteredNameIsValid ? "form-control" : "form-control invalid";
+    const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
+    const nameInputClasses = nameInputIsInvalid
+        ? "form-control invalid"
+        : "form-control ";
 
     return (
         <form onSubmit={formSubmissionHandler}>
@@ -37,7 +51,7 @@ const SimpleInput = (props) => {
                     ref={nameInputRef}
                     value={enteredName}
                 />
-                {!enteredNameIsValid && (
+                {nameInputIsInvalid && (
                     <p className="error-text">Name must not be empty</p>
                 )}
             </div>
