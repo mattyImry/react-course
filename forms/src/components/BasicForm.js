@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useFormInputs from "../hook/form-inputs";
 
 const BasicForm = (props) => {
@@ -20,41 +19,36 @@ const BasicForm = (props) => {
         reset: resetLastNameInput,
     } = useFormInputs((value) => value.trim() !== "");
 
-    const [emailInputValue, setEmailInputValue] = useState("");
-    const [emailInputIsTouched, setEmailInputIsTouched] = useState(false);
-
-    const enteredEmailIsValid = emailInputValue.includes("@");
-    const emailInputError = !enteredEmailIsValid && emailInputIsTouched;
+    const {
+        value: emailInputValue,
+        isValid: inputEmailIsValid,
+        hasError: emailInputError,
+        valueChangeHandler: emailInputHandler,
+        inputBlurHandler: emailBlurHandler,
+        reset: resetEmailInput,
+    } = useFormInputs((value) => {
+        value.includes("@");
+        console.log(value);
+    });
 
     let formIsValid = false;
 
-    if (inputNameIsValid && inputLastNameIsValid && enteredEmailIsValid) {
+    if (inputNameIsValid && inputLastNameIsValid && inputEmailIsValid) {
         formIsValid = true;
     }
-
-    const emailInputHandler = (event) => {
-        setEmailInputValue(event.target.value);
-    };
-
-    const emailBlurHandler = () => {
-        setEmailInputIsTouched(true);
-    };
 
     const formSubmitHandler = (event) => {
         event.preventDefault();
 
-        setEmailInputIsTouched(true);
-
-        if (!inputNameIsValid && !inputLastNameIsValid) {
+        if (!inputNameIsValid && !inputLastNameIsValid && !inputEmailIsValid) {
             return;
         }
         resetNameInput();
         resetLastNameInput();
-
-        setEmailInputValue("");
+        resetEmailInput();
     };
 
-    const nameInputClasses = nameInputError ? "form-control invalid " : "form-control ";
+    const nameInputClasses = nameInputError ? "form-control invalid " : "form-control";
     const lastNameInputClasses = lastNameInputError
         ? "form-control invalid"
         : "form-control";
@@ -76,7 +70,7 @@ const BasicForm = (props) => {
                     {nameInputError && <p className="error-text">Please enter name.</p>}
                 </div>
                 <div className={lastNameInputClasses}>
-                    <label htmlFor="name">Last Name</label>
+                    <label htmlFor="lastName">Last Name</label>
                     <input
                         type="text"
                         id="name"
@@ -90,7 +84,7 @@ const BasicForm = (props) => {
                 </div>
             </div>
             <div className={emailInputClasses}>
-                <label htmlFor="name">E-Mail Address</label>
+                <label htmlFor="email">E-Mail Address</label>
                 <input
                     type="text"
                     id="name"
