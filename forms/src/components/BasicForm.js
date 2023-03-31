@@ -7,6 +7,12 @@ const BasicForm = (props) => {
     const enteredNameIsValid = nameInputValue.trim() !== "";
     const nameInputError = !enteredNameIsValid && nameInputIsTouched;
 
+    let formIsValid = false;
+
+    if (enteredNameIsValid) {
+        formIsValid = true;
+    }
+
     const nameInputHandler = (event) => {
         setNameInputValue(event.target.value);
     };
@@ -23,6 +29,7 @@ const BasicForm = (props) => {
             return;
         }
         setNameInputValue("");
+        setNameInputIsTouched(false);
     };
 
     const nameInputClasses = !nameInputError ? "form-control" : "form-control invalid";
@@ -51,7 +58,7 @@ const BasicForm = (props) => {
                 <input type="text" id="name" />
             </div>
             <div className="form-actions">
-                <button>Submit</button>
+                <button disabled={!formIsValid}>Submit</button>
             </div>
         </form>
     );
