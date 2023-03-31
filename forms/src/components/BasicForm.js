@@ -1,11 +1,21 @@
 import { useState } from "react";
+import useFormInputs from "../hook/form-inputs";
 
 const BasicForm = (props) => {
-    const [nameInputValue, setNameInputValue] = useState("");
-    const [nameInputIsTouched, setNameInputIsTouched] = useState(false);
+    const {
+        value: nameInputValue,
+        isValid: inputNameIsValid,
+        hasError: nameInputError,
+        valueChangeHandler: nameInputHandler,
+        inputBlurHandler: nameBlurHandler,
+        reset: resetNameInput,
+    } = useFormInputs((value) => value.trim() !== "");
 
-    const enteredNameIsValid = nameInputValue.trim() !== "";
-    const nameInputError = !enteredNameIsValid && nameInputIsTouched;
+    // const [nameInputValue, setNameInputValue] = useState("");
+    // const [nameInputIsTouched, setNameInputIsTouched] = useState(false);
+
+    // const enteredNameIsValid = nameInputValue.trim() !== "";
+    // const nameInputError = !enteredNameIsValid && nameInputIsTouched;
 
     const [lastNameInputValue, setLastNameInputValue] = useState("");
     const [lastNameInputIsTouched, setLastNameInputIsTouched] = useState(false);
@@ -21,17 +31,9 @@ const BasicForm = (props) => {
 
     let formIsValid = false;
 
-    if (enteredNameIsValid && enteredLastNameIsValid && enteredEmailIsValid) {
+    if (inputNameIsValid && enteredLastNameIsValid && enteredEmailIsValid) {
         formIsValid = true;
     }
-
-    const nameInputHandler = (event) => {
-        setNameInputValue(event.target.value);
-    };
-
-    const nameBlurHandler = () => {
-        setNameInputIsTouched(true);
-    };
 
     const lastNameInputHandler = (event) => {
         setLastNameInputValue(event.target.value);
@@ -51,23 +53,21 @@ const BasicForm = (props) => {
 
     const formSubmitHandler = (event) => {
         event.preventDefault();
-        setNameInputIsTouched(true);
+
         setEmailInputIsTouched(true);
 
-        if (!enteredNameIsValid && !enteredEmailIsValid) {
+        if (!inputNameIsValid && !enteredEmailIsValid) {
             return;
         }
-        setNameInputValue("");
-        setNameInputIsTouched(false);
+        resetNameInput();
 
         setLastNameInputValue("");
         setLastNameInputIsTouched(false);
 
         setEmailInputValue("");
-        setNameInputIsTouched(false);
     };
 
-    const nameInputClasses = nameInputError ? "form-control invalid" : "form-control";
+    const nameInputClasses = nameInputError ? "form-control invalid " : "form-control ";
     const lastNameInputClasses = lastNameInputError
         ? "form-control invalid"
         : "form-control";
