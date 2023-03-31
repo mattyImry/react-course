@@ -11,17 +11,14 @@ const BasicForm = (props) => {
         reset: resetNameInput,
     } = useFormInputs((value) => value.trim() !== "");
 
-    // const [nameInputValue, setNameInputValue] = useState("");
-    // const [nameInputIsTouched, setNameInputIsTouched] = useState(false);
-
-    // const enteredNameIsValid = nameInputValue.trim() !== "";
-    // const nameInputError = !enteredNameIsValid && nameInputIsTouched;
-
-    const [lastNameInputValue, setLastNameInputValue] = useState("");
-    const [lastNameInputIsTouched, setLastNameInputIsTouched] = useState(false);
-
-    const enteredLastNameIsValid = lastNameInputValue.trim() !== "";
-    const lastNameInputError = !enteredLastNameIsValid && lastNameInputIsTouched;
+    const {
+        value: lastNameInputValue,
+        isValid: inputLastNameIsValid,
+        hasError: lastNameInputError,
+        valueChangeHandler: lastNameInputHandler,
+        inputBlurHandler: lastNameBlurHandler,
+        reset: resetLastNameInput,
+    } = useFormInputs((value) => value.trim() !== "");
 
     const [emailInputValue, setEmailInputValue] = useState("");
     const [emailInputIsTouched, setEmailInputIsTouched] = useState(false);
@@ -31,17 +28,9 @@ const BasicForm = (props) => {
 
     let formIsValid = false;
 
-    if (inputNameIsValid && enteredLastNameIsValid && enteredEmailIsValid) {
+    if (inputNameIsValid && inputLastNameIsValid && enteredEmailIsValid) {
         formIsValid = true;
     }
-
-    const lastNameInputHandler = (event) => {
-        setLastNameInputValue(event.target.value);
-    };
-
-    const lastNameBlurHandler = () => {
-        setLastNameInputIsTouched(true);
-    };
 
     const emailInputHandler = (event) => {
         setEmailInputValue(event.target.value);
@@ -56,13 +45,11 @@ const BasicForm = (props) => {
 
         setEmailInputIsTouched(true);
 
-        if (!inputNameIsValid && !enteredEmailIsValid) {
+        if (!inputNameIsValid && !inputLastNameIsValid) {
             return;
         }
         resetNameInput();
-
-        setLastNameInputValue("");
-        setLastNameInputIsTouched(false);
+        resetLastNameInput();
 
         setEmailInputValue("");
     };
