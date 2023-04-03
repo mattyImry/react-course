@@ -1,4 +1,5 @@
-import useFormInputs from "../hook/form-inputs";
+// import useFormInputs from "../hook/form-inputs";
+import useInput from "../hook/use-input";
 
 const BasicForm = (props) => {
     const {
@@ -8,7 +9,7 @@ const BasicForm = (props) => {
         valueChangeHandler: nameInputHandler,
         inputBlurHandler: nameBlurHandler,
         reset: resetNameInput,
-    } = useFormInputs((value) => value.trim() !== "");
+    } = useInput((value) => value.trim() !== "");
 
     const {
         value: lastNameInputValue,
@@ -17,7 +18,7 @@ const BasicForm = (props) => {
         valueChangeHandler: lastNameInputHandler,
         inputBlurHandler: lastNameBlurHandler,
         reset: resetLastNameInput,
-    } = useFormInputs((value) => value.trim() !== "");
+    } = useInput((value) => value.trim() !== "");
 
     const {
         value: emailInputValue,
@@ -26,9 +27,8 @@ const BasicForm = (props) => {
         valueChangeHandler: emailInputHandler,
         inputBlurHandler: emailBlurHandler,
         reset: resetEmailInput,
-    } = useFormInputs((value) => {
+    } = useInput((value) => {
         value.includes("@");
-        console.log(value);
     });
 
     let formIsValid = false;
@@ -40,9 +40,11 @@ const BasicForm = (props) => {
     const formSubmitHandler = (event) => {
         event.preventDefault();
 
-        if (!inputNameIsValid && !inputLastNameIsValid && !inputEmailIsValid) {
+        if (!formIsValid) {
             return;
         }
+
+        console.log("Submitted");
         resetNameInput();
         resetLastNameInput();
         resetEmailInput();
@@ -63,6 +65,7 @@ const BasicForm = (props) => {
                     <input
                         type="text"
                         id="name"
+                        hasError={nameInputError}
                         value={nameInputValue}
                         onChange={nameInputHandler}
                         onBlur={nameBlurHandler}
@@ -74,6 +77,7 @@ const BasicForm = (props) => {
                     <input
                         type="text"
                         id="name"
+                        hasError={nameInputError}
                         value={lastNameInputValue}
                         onChange={lastNameInputHandler}
                         onBlur={lastNameBlurHandler}
@@ -88,6 +92,7 @@ const BasicForm = (props) => {
                 <input
                     type="text"
                     id="name"
+                    hasError={emailInputError}
                     value={emailInputValue}
                     onChange={emailInputHandler}
                     onBlur={emailBlurHandler}
