@@ -18,6 +18,12 @@
     color: white;
   }
 
+  .MealsError{
+    text-align: center;
+    color:red
+    ;
+  }
+
   .loader {
     border: 2px solid #f3f3f3;
     border-radius: 50%;
