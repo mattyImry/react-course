@@ -20,6 +20,7 @@ const Checkout = (props) => {
                 <input type="text" id="city" />
             </div>
             <button>Confirm</button>
+            <button>Cancel</button>
         </form>
     );
 };
