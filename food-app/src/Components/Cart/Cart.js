@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import classes from "./Cart.module.css";
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
@@ -8,6 +8,11 @@ import Checkout from "./Checkout";
 
 const Cart = (props) => {
     const [isCheckout, setIsCheckout] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [didSubmit, setDidSubmit] = useState(false);
+
+    // const [submittingError, setSubmittingError] = useState();
+
     const cartCtx = useContext(CartContext);
     const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
     const hasItems = cartCtx.items.length > 0;
@@ -24,8 +29,9 @@ const Cart = (props) => {
         setIsCheckout(true);
     };
 
-    const submitOrderHandler = (userData) => {
-        fetch(
+    const submitOrderHandler = async (userData) => {
+        setIsSubmitting(true);
+        await fetch(
             "https://react-food-app-32373-default-rtdb.europe-west1.firebasedatabase.app/order.json",
             {
                 method: "POST",
@@ -35,8 +41,28 @@ const Cart = (props) => {
                 }),
             }
         );
-        console.log(cartCtx.items);
+
+        // if (!response.ok) {
+        //     throw new Error("Something went wrong");
+        // }
+
+        //const responseData = await response.json();
+        setIsSubmitting(false);
+        setDidSubmit(true);
     };
+    // useEffect(() => {
+    //     submitOrderHandler().catch((error) => {
+    //         setSubmittingError(error.message);
+    //     });
+    // }, []);
+
+    // if (submittingError) {
+    //     return (
+    //         <section className={classes.submitError}>
+    //             <p>{submittingError}</p>
+    //         </section>
+    //     );
+    // }
 
     const modalActions = (
         <div className={classes.actions}>
@@ -65,8 +91,9 @@ const Cart = (props) => {
             ))}
         </ul>
     );
-    return (
-        <Modal onClose={props.onClose}>
+
+    const cartModalContent = (
+        <React.Fragment>
             {cartItems}
             <div className={classes.total}>
                 <span>Total Amount</span>
@@ -76,6 +103,18 @@ const Cart = (props) => {
                 <Checkout onCancel={props.onClose} onConfirm={submitOrderHandler} />
             )}
             {!isCheckout && modalActions}
+        </React.Fragment>
+    );
+
+    const isSubmittingModalContent = <p>Sending Order</p>;
+
+    const didSubmitModalContent = <p>Succesfully Sent Order</p>;
+
+    return (
+        <Modal onClose={props.onClose}>
+            {!isSubmitting && !didSubmit && cartModalContent}
+            {isSubmitting && isSubmittingModalContent}
+            {!isSubmitting && didSubmit && didSubmitModalContent}
         </Modal>
     );
 };

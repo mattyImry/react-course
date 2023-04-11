@@ -42,7 +42,7 @@ const AvailableMeals = (props) => {
         return (
             <section className={classes.MealsLoading}>
                 <p>Loading...</p>
-                <div class={classes.loader}></div>
+                <div className={classes.loader}></div>
             </section>
         );
     }
