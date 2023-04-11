@@ -49,6 +49,7 @@ const Cart = (props) => {
         //const responseData = await response.json();
         setIsSubmitting(false);
         setDidSubmit(true);
+        cartCtx.clearCart();
     };
     // useEffect(() => {
     //     submitOrderHandler().catch((error) => {
