@@ -11,8 +11,6 @@ const Cart = (props) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [didSubmit, setDidSubmit] = useState(false);
 
-    // const [submittingError, setSubmittingError] = useState();
-
     const cartCtx = useContext(CartContext);
     const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
     const hasItems = cartCtx.items.length > 0;
@@ -42,28 +40,10 @@ const Cart = (props) => {
             }
         );
 
-        // if (!response.ok) {
-        //     throw new Error("Something went wrong");
-        // }
-
-        //const responseData = await response.json();
         setIsSubmitting(false);
         setDidSubmit(true);
         cartCtx.clearCart();
     };
-    // useEffect(() => {
-    //     submitOrderHandler().catch((error) => {
-    //         setSubmittingError(error.message);
-    //     });
-    // }, []);
-
-    // if (submittingError) {
-    //     return (
-    //         <section className={classes.submitError}>
-    //             <p>{submittingError}</p>
-    //         </section>
-    //     );
-    // }
 
     const modalActions = (
         <div className={classes.actions}>
