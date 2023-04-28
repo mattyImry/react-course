@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { counterActions } from "../store";
 
 import classes from "./Counter.module.css";
 
@@ -9,19 +10,19 @@ const Counter = () => {
     const show = useSelector((state) => state.showCounter);
 
     const incrementHandler = () => {
-        dispatch({ type: "increment" });
+        dispatch(counterActions.increment());
     };
 
     const increseHandler = () => {
-        dispatch({ type: "increse", amount: 5 });
+        dispatch(counterActions.increase(5)); // REDUX WILL GICE YOU THIS, so to access in index.js ln 16 uses 'payload' {type: SOME_UNIQUE_IDENTIFIER, payload:5}
     };
 
     const decrementHandler = () => {
-        dispatch({ type: "decrement" });
+        dispatch(counterActions.decrement());
     };
 
     const toggleCounterHandler = () => {
-        dispatch({ type: "toggle" });
+        dispatch(counterActions.toggleCounter());
     };
 
     return (
