@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import uiSlice from "./ui-slice";
 
-const storte = configureStore({
+const store = configureStore({
     reducer: {
         ui: uiSlice.reducer,
     },
