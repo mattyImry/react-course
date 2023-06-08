@@ -1,6 +1,7 @@
 import classes from "./Counter.module.css";
 
 import { useSelector, useDispatch } from "react-redux";
+import { counterActions } from "../store";
 
 const Counter = () => {
   const dispatch = useDispatch();
@@ -8,16 +9,18 @@ const Counter = () => {
   const show = useSelector((state) => state.showCounter);
 
   const incrementHandler = () => {
-    dispatch({ type: "increment" });
+    dispatch(counterActions.increment());
   };
   const decrementHandler = () => {
-    dispatch({ type: "decrement" });
+    dispatch(counterActions.decrement());
   };
   const increseHandler = () => {
-    dispatch({ type: "increse", amount: 5 });
+    dispatch(counterActions.increse(5)); // the payload is added inside() also the object created in auto
+    //is {type: UNIQUE AUTO IDENTIFUER, payload: 5} payload is not up to us is in auto
+    //so in index.js inside increse method is action.payload
   };
   const toggleCounterHandler = () => {
-    dispatch({ type: "toggle" });
+    dispatch(counterActions.toggle());
   };
 
   return (
