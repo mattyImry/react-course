@@ -22,7 +22,7 @@ function Products() {
             <ul>
                 {PRODUCTS.map((prod) => (
                     <li key={prod.id}>
-                        <Link to={`/products/${prod.id}`}>{prod.tittle}</Link>
+                        <Link to={prod.id}>{prod.tittle}</Link>
                     </li>
                 ))}
             </ul>

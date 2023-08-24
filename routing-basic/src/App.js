@@ -26,7 +26,7 @@ const routerHome = createBrowserRouter([
         element: <RootLayout />,
         errorElement: <ErrorPage />,
         children: [
-            { path: "", element: <HomePage /> },
+            { index: true, element: <HomePage /> }, //{ path: "", element: <HomePage /> }, use index:true if you want this rout to be index
             { path: "products", element: <Products /> },
             { path: "products/:productId", element: <ProductDetailPage /> },
         ],
