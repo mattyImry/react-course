@@ -55,7 +55,7 @@ const routerHome = createBrowserRouter([
                                 index: true,
                                 element: <EventDetailPage />,
                             },
-                            { path: "edit", element: <EditEventPage /> },
+                            { path: "edit", element: <EditEventPage />, action: },
                         ],
                     },
                     { path: "new", element: <NewEventPage /> },
