@@ -1,11 +1,1 @@
-{
-  "events": [
-    {
-      "id": "e1",
-      "title": "A dummy event",
-      "date": "2023-02-22",
-      "image": "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-      "description": "Join this amazing event and connect with fellow developers."
-    }
-  ]
-}
+{"events":[{"title":"Exta 1","image":"https://cdn.boomfestival.org/assets/files/12207/bf22_psymon_408.1300x614.jpg","date":"2023-08-19","description":"bOOM","id":"9b18294d-6261-45e4-8a44-b69bb50c9a89"},{"title":"Summer one","image":"https://media.timeout.com/images/105950033/1920/1080/image.jpg","date":"2023-09-03","description":"adasdasdasdasd","id":"d4bbd847-bd01-4d63-a028-f408454a6b4d"},{"title":"Summer one","image":"https://media.timeout.com/images/105950033/1920/1080/image.jpg","date":"2023-09-10","description":"sadasdasdasd","id":"86b2ec6a-a2c8-4635-a42b-947e632384c8"},{"id":"e1","title":"A dummy event","date":"2023-02-22","image":"https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg","description":"Join this amazing event and connect with fellow developers."}]}
