@@ -38,7 +38,7 @@ async function loadEvents() {
 }
 
 export function loader() {
-    defer({
+    return defer({
         events: loadEvents(),
     });
 }
