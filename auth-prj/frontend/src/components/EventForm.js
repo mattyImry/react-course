@@ -110,7 +110,7 @@ export async function action({ request, params }) {
         headers: {
             "Content-Type": "application/json",
           
-            "Authorization": "Bearer " + token,
+            'Authorization': 'Bearer ' + token
         },
         body: JSON.stringify(eventData),
     });
