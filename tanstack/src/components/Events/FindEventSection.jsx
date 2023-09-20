@@ -1,6 +1,14 @@
+import { useQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
 
 export default function FindEventSection() {
+
+  const j = useQuery({
+        queryKey: ["events"],
+        queryFn:
+  })
+
+  
   const searchElement = useRef();
 
   function handleSubmit(event) {
